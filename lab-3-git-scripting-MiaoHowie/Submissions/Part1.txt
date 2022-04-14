@@ -1,0 +1,14 @@
+
+howiem<@!256631128411209730>Mac lab-3-git-scripting-MiaoHowie % docker-compose run devel
+Creating network "lab-3-git-scripting-miaohowie_default" with the default driver
+Pulling devel (ubuntu:20.04)...
+20.04: Pulling from library/ubuntu
+08c01a0ec47e: Pull complete
+Digest: sha256:669e010b58baf5beb2836b253c1fd5768333f0d1dbcb834f7c07a4dc93f474be
+Status: Downloaded newer image for ubuntu:20.04
+Creating lab-3-git-scripting-miaohowie_devel_run ... done
+root@2998ddfb84db:/repository# pwd
+/repository
+root@2998ddfb84db:/repository# ls
+README.md  bash_scripts  docker-compose.yaml  examples
+root@2998ddfb84db:/repository# 

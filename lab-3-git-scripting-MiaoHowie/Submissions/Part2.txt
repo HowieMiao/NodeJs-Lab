@@ -1,0 +1,12 @@
+amj@uole.comroot@2998ddfb84db:/repository/bash_scripts# ls
+lab3_sample.txt  regex_practice.txt
+root@2998ddfb84db:/repository/bash_scripts# vim practice.sh
+root@2998ddfb84db:/repository/bash_scripts# chmod +x practice.sh 
+root@2998ddfb84db:/repository/bash_scripts# ./practice.sh 
+Enter a number:
+12
+Enter a second number:
+12
+The sum of both numbers is: 24
+The product of both numbers is: 144
+root@2998ddfb84db:/repository/bash_scripts# 
