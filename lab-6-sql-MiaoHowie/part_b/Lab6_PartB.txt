@@ -1,0 +1,197 @@
+Lab #6 Take Home
+Your name: Howie Miao
+
+
+---------------------------------------- Question 1 Query ---------------------------------------- 
+
+										put query here
+SELECT product_name
+FROM products
+WHERE product_name LIKE '%r' OR product_name LIKE '%j';
+
+          product_name           
+---------------------------------
+ Jack's New England Clam Chowder
+ Laughing Lumberjack Lager
+ Outback Lager
+ Röd Kaviar
+ Rhönbräu Klosterbier
+(5 rows)
+---------------------------------------- Question 2 Query ---------------------------------------- 
+
+										put query here
+SELECT MAX(unit_price),MIN(unit_price),AVG(unit_price)
+FROM order_details;
+  max  | min |        avg        
+-------+-----+-------------------
+ 263.5 |   2 | 24.59025131313185
+(1 row)
+---------------------------------------- Question 3 Query ---------------------------------------- 
+
+										put query here
+SELECT C.category_name,MAX(O.unit_price) AS max_unitprice
+FROM categories C,products P,order_details O
+WHERE P.category_id=C.category_id AND O.product_id=P.product_id
+GROUP BY C.category_name
+ORDER BY max_unitprice DESC;
+
+ category_name  | max_unitprice 
+----------------+---------------
+ Beverages      |         263.5
+ Meat/Poultry   |        123.79
+ Confections    |            81
+ Seafood        |          62.5
+ Dairy Products |            55
+ Produce        |            53
+ Condiments     |          43.9
+ Grains/Cereals |            38
+(8 rows)
+---------------------------------------- Question 4 Query ---------------------------------------- 
+
+										put query here
+SELECT C.customer_id,C.contact_name,COUNT(order_id)
+FROM customers C,orders O
+WHERE O.customer_id=C.customer_id
+GROUP BY C.customer_id
+HAVING COUNT(order_ID)>15;
+
+ customer_id |    contact_name    | numberoforders 
+-------------+--------------------+----------------
+ RATTC       | Paula Wilson       |             18
+ QUICK       | Horst Kloss        |             28
+ HUNGO       | Patricia McKenna   |             19
+ BONAP       | Laurence Lebihan   |             17
+ BERGS       | Christina Berglund |             18
+ FOLKO       | Maria Larsson      |             19
+ SAVEA       | Jose Pavarotti     |             31
+ HILAA       | Carlos Hernández   |             18
+ ERNSH       | Roland Mendel      |             30
+(9 rows)
+---------------------------------------- Question 5 Query ---------------------------------------- 
+
+										put query here
+SELECT O.order_id,OD.quantity,OD.discount
+FROM orders O,order_details OD
+WHERE OD.order_id=O.order_id AND O.ship_country='Brazil' AND O.freight>100;
+
+ order_id | quantity | discount 
+----------+----------+----------
+    10372 |       12 |     0.25
+    10372 |       40 |     0.25
+    10372 |       70 |     0.25
+    10372 |       42 |     0.25
+    10406 |       10 |        0
+    10406 |       30 |      0.1
+    10406 |       42 |      0.1
+    10406 |        5 |      0.1
+    10406 |        2 |      0.1
+    10637 |       10 |        0
+    10637 |       25 |     0.05
+    10637 |       60 |     0.05
+    10650 |       30 |        0
+    10650 |       25 |     0.05
+    10650 |       30 |        0
+    10659 |       20 |     0.05
+    10659 |       24 |     0.05
+    10659 |       40 |     0.05
+(18 rows)
+
+---------------------------------------- Question 6 Query ---------------------------------------- 
+
+										put query here
+
+SELECT city,COUNT(customer_id) as CustNum
+FROM customers
+GROUP BY customers.city
+ORDER BY COUNT(customer_id) DESC LIMIT 1; 		
+
+  city  | custnum 
+--------+---------
+ London |       6
+(1 row)							
+---------------------------------------- Question 7 Query ---------------------------------------- 
+
+										put query here
+SELECT P.*
+FROM products P,orders O,order_details OD
+WHERE O.ship_country='Mexico' AND OD.order_id=O.order_id AND P.product_id=OD.product_id;
+
+ product_id |         product_name          | category_id |  quantity_per_unit  
+ | unit_price | units_in_stock | units_on_order | reorder_level | discontinued 
+------------+-------------------------------+-------------+---------------------
+-+------------+----------------+----------------+---------------+--------------
+         21 | Sir Rodney's Scones           |           3 | 24 pkgs. x 4 pieces 
+ |         10 |              3 |             40 |             5 |            0
+         37 | Gravad lax                    |           8 | 12 - 500 g pkgs.    
+ |         26 |             11 |             50 |            25 |            0
+         10 | Ikura                         |           8 | 12 - 200 ml jars    
+ |         31 |             31 |              0 |             0 |            0
+         13 | Konbu                         |           8 | 2 kg box            
+ |          6 |             24 |              0 |             5 |            0
+         18 | Carnarvon Tigers              |           8 | 16 kg pkg.          
+ |       62.5 |             42 |              0 |             0 |            0
+         24 | Guaraná Fantástica            |           1 | 12 - 355 ml cans    
+ |        4.5 |             20 |              0 |             0 |            1
+         63 | Vegie-spread                  |           2 | 15 - 625 g jars     
+ |       43.9 |             24 |              0 |             5 |            0
+         75 | Rhönbräu Klosterbier          |           1 | 24 - 0.5 l bottles  
+ |       7.75 |            125 |              0 |            25 |            0
+         49 | Maxilaku                      |           3 | 24 - 50 g pkgs.     
+ |         20 |             10 |             60 |            15 |            0
+         59 | Raclette Courdavault          |           4 | 5 kg pkg.           
+ |         55 |             79 |              0 |             0 |            0
+         71 | Flotemysost                   |           4 | 10 - 500 g pkgs.    
+ |       21.5 |             26 |              0 |             0 |            0
+         69 | Gudbrandsdalsost              |           4 | 10 kg pkg.          
+ |         36 |             26 |              0 |            15 |            0
+         70 | Outback Lager                 |           1 | 24 - 355 ml bottles 
+ |         15 |             15 |             10 |            30 |            0
+         17 | Alice Mutton                  |           6 | 20 - 1 kg tins      
+ |         39 |              0 |              0 |             0 |            1
+         28 | Rössle Sauerkraut             |           7 | 25 - 825 g cans     
+ |       45.6 |             26 |              0 |             0 |            1
+         76 | Lakkalikööri                  |           1 | 500 ml              
+ |         18 |             57 |              0 |            20 |            0
+         52 | Filo Mix                      |           5 | 16 - 2 kg boxes     
+ |          7 |             38 |              0 |            25 |            0
+          1 | Chai                          |           1 | 10 boxes x 30 bags  
+ |         18 |             39 |              0 |            10 |            1
+         29 | Thüringer Rostbratwurst       |           6 | 50 bags x 30 sausgs.
+ |     123.79 |              0 |              0 |             0 |            1
+         11 | Queso Cabrales                |           4 | 1 kg pkg.           
+ |         21 |             22 |             30 |            30 |            0
+         14 | Tofu                          |           7 | 40 - 100 g pkgs.    
+ |      23.25 |             35 |              0 |             0 |            0
+         28 | Rössle Sauerkraut             |           7 | 25 - 825 g cans     
+ |       45.6 |             26 |              0 |             0 |            1
+         40 | Boston Crab Meat              |           8 | 24 - 4 oz tins      
+ |       18.4 |            123 |              0 |            30 |            0
+         75 | Rhönbräu Klosterbier          |           1 | 24 - 0.5 l bottles  
+ |       7.75 |            125 |              0 |            25 |            0
+         45 | Rogede sild                   |           8 | 1k pkg.             
+ |        9.5 |              5 |             70 |            15 |            0
+         53 | Perth Pasties                 |           6 | 48 pieces           
+ |       32.8 |              0 |              0 |             0 |            1
+         67 | Laughing Lumberjack Lager     |           1 | 24 - 12 oz bottles  
+ |         14 |             52 |              0 |            10 |            0
+         43 | Ipoh Coffee                   |           1 | 16 - 500 g tins     
+ |         46 |             17 |             10 |            25 |            0
+         48 | Chocolade                     |           3 | 10 pkgs.            
+ |      12.75 |             15 |             70 |            25 |            0
+         24 | Guaraná Fantástica            |           1 | 12 - 355 ml cans    
+ |        4.5 |             20 |              0 |             0 |            1
+         38 | Côte de Blaye                 |           1 | 12 - 75 cl bottles  
+ |      263.5 |             17 |              0 |            15 |            0
+         44 | Gula Malacca                  |           2 | 20 - 2 kg bags      
+ |      19.45 |             27 |              0 |            15 |            0
+         11 | Queso Cabrales                |           4 | 1 kg pkg.           
+ |         21 |             22 |             30 |            30 |            0
+         40 | Boston Crab Meat              |           8 | 24 - 4 oz tins      
+ |       18.4 |            123 |              0 |            30 |            0
+         57 | Ravioli Angelo                |           5 | 24 - 250 g pkgs.    
+ |       19.5 |             36 |              0 |            20 |            0
+         59 | Raclette Courdavault          |           4 | 5 kg pkg.           
+ |         55 |             79 |              0 |             0 |            0
+         17 | Alice Mutton                  |           6 | 20 - 1 kg tins      
+ |         39 |              0 |              0 |             0 |            1
+--More--										
